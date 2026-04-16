@@ -1,36 +1,115 @@
-import { Subject } from "../types";
+import { GraduationCap, School } from "lucide-react";
 
-export const DEPARTMENTS =
-  ['CS','Math','English',];
-export const DEPARTMENT_OPTIONS = DEPARTMENTS.map((dept)=>
-  ({
-    value:dept,
-    label:dept,
-  }));
+export const USER_ROLES = {
+  STUDENT: "student",
+  TEACHER: "teacher",
+  ADMIN: "admin",
+};
 
-export const MOCK_SUBJECTS: Subject[] = [
+export const ROLE_OPTIONS = [
+  {
+    value: USER_ROLES.STUDENT,
+    label: "Student",
+    icon: GraduationCap,
+  },
+  {
+    value: USER_ROLES.TEACHER,
+    label: "Teacher",
+    icon: School,
+  },
+];
+
+export const DEPARTMENTS = [
+  "Computer Science",
+  "Mathematics",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "English",
+  "History",
+  "Geography",
+  "Economics",
+  "Business Administration",
+  "Engineering",
+  "Psychology",
+  "Sociology",
+  "Political Science",
+  "Philosophy",
+  "Education",
+  "Fine Arts",
+  "Music",
+  "Physical Education",
+  "Law",
+] as const;
+
+export const DEPARTMENT_OPTIONS = DEPARTMENTS.map((dept) => ({
+  value: dept,
+  label: dept,
+}));
+
+export const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB in bytes
+export const ALLOWED_TYPES = [
+  "image/png",
+  "image/jpeg",
+  "image/jpg",
+  "image/webp",
+];
+
+const getEnvVar = (key: string): string => {
+  const value = import.meta.env[key];
+  if (!value) {
+    console.warn(`Missing environment variable: ${key}`);
+    return "";
+  }
+  return value;
+};
+
+export const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY_UPLOAD_URL;
+export const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+export const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+
+export const BASE_URL =  import.meta.env.VITE_API_URL;
+export const ACCESS_TOKEN_KEY = import.meta.env.VITE_ACCESS_TOKEN_KEY
+export const REFRESH_TOKEN_KEY = import.meta.env.VITE_REFRESH_TOKEN_KEY
+
+export const REFRESH_TOKEN_URL = `${BASE_URL}/refresh-token`;
+
+export const CLOUDINARY_UPLOAD_PRESET = getEnvVar("VITE_CLOUDINARY_UPLOAD_PRESET");
+
+export const teachers = [
+  {
+    id: "1",
+    name: "John Doe",
+  },
+  {
+    id: "2",
+    name: "Jane Smith",
+  },
+  {
+    id: "3",
+    name: "Dr. Alan Turing",
+  },
+];
+
+export const subjects = [
   {
     id: 1,
-    courseCode: "CS101",
-    name: "Introduction to Computer Science",
-    department: "CS",
-    description: "Fundamentals of programming, data structures, and algorithms.",
-    createdAt: new Date().toISOString(),
+    name: "Mathematics",
+    code: "MATH",
   },
   {
     id: 2,
-    courseCode: "MATH201",
-    name: "Linear Algebra",
-    department: "Math",
-    description: "Vector spaces, linear transformations, matrices, and determinants.",
-    createdAt: new Date().toISOString(),
+    name: "Computer Science",
+    code: "CS",
   },
   {
     id: 3,
-    courseCode: "ENG301",
-    name: "Advanced English Literature",
-    department: "English",
-    description: "In-depth study of classic and contemporary English literary works.",
-    createdAt: new Date().toISOString(),
+    name: "Physics",
+    code: "PHY",
+  },
+  {
+    id: 4,
+    name: "Chemistry",
+    code: "CHEM",
   },
 ];
