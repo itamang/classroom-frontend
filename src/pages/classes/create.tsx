@@ -5,7 +5,7 @@ import {useBack} from "@refinedev/core";
 import {Separator} from "@/components/ui/separator.tsx";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.tsx"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm } from "@refinedev/react-hook-form"
 import {classSchema} from "@/lib/schema.ts";
 import * as z from "zod";
 
@@ -78,7 +78,8 @@ const Create = () => {
   ];
 
   const bannerPublicId = form.watch('bannerCldPubId')
-  const setBannerImage = (file, field) =>{
+    const setBannerImage = (file: { url: string; publicId: string } | null, field: any) => {
+
       if(file){
           field.onChange(file.url);
           form.setValue('bannerCldPubId', file.publicId, {shouldValidate: true, shouldDirty: true,});
@@ -113,27 +114,35 @@ const Create = () => {
           <CardContent className="mt-7">
             <Form {...form}>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-               <FormField
-                 control={control}
-                 name="bannerUrl"
-                 render = {({field})=>(
-                     <FormItem>
-                         <FormLabel>
-                             Banner Image <span className="text-orange-600">*</span>
-                         </FormLabel>
-                         <FormControl>
-                             <UploadWidget
-                                 value={field.value? {url:field.value, publicId: bannerPublicId ?? ''}: null}
-                                onChange={(file:any, field: any)=>setBannerImage}
-                             />
-                         </FormControl>
-                         <FormMessage/>
-                         {errors.bannerCldPubId &&  !errors.bannerUrl &&  (
-                             <p className="text-destructive text-sm">{errors.bannerCldPubId.message?.toString()}</p>
-                         )}
-                     </FormItem>
-                 )}
-
+                <FormField
+                  control={control}
+                  name="bannerUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Banner Image <span className="text-orange-600">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <UploadWidget
+                          value={
+                            field.value
+                              ? {
+                                  url: field.value,
+                                  publicId: bannerPublicId ?? '',
+                                }
+                              : null
+                          }
+                          onChange={(file: any) => setBannerImage(file, field)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                      {errors.bannerCldPubId && !errors.bannerUrl && (
+                        <p className="text-destructive text-sm">
+                          {errors.bannerCldPubId.message?.toString()}
+                        </p>
+                      )}
+                    </FormItem>
+                  )}
                 />
                 <FormField
                   control={control}
@@ -239,7 +248,7 @@ const Create = () => {
                               const value = e.target.value;
                               field.onChange(value ? Number(value) : undefined);
                             }}
-                            value={(field.value as number | undefined) ?? ""}
+                            value={(field.value as number | undefined) ?? ''}
                             name={field.name}
                             ref={field.ref}
                             onBlur={field.onBlur}
@@ -297,14 +306,19 @@ const Create = () => {
 
                 <Separator />
 
-                <Button type="submit" size="lg" className="w-full">
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? (
                     <div className="flex gap-1">
                       <span>Creating Class...</span>
                       <Loader2 className="inline-block ml-2 animate-spin" />
                     </div>
                   ) : (
-                    "Create Class"
+                    'Create Class'
                   )}
                 </Button>
               </form>

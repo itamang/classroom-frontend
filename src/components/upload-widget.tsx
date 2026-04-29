@@ -47,13 +47,15 @@ const UploadWidget = ({value = null , onChange, disabled= false}) => {
             )
             return true;
         }
-        if (initializeWidget() ) return;
+        if (initializeWidget()) return;
+        let attempts = 0;
+        const maxAttempts = 20; // ~10s
         const intervalId = window.setInterval(() => {
-           if(initializeWidget()){
-               window.clearInterval(intervalId);
-           }
-        }, 500);
-        return () => window.clearInterval(intervalId);
+            attempts += 1;
+            if (initializeWidget() || attempts >= maxAttempts) {
+                window.clearInterval(intervalId);
+            }
+            }, 500);
 
     }, []);
     const openWidget = () => {
