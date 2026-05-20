@@ -1,4 +1,4 @@
-# classromm-frontend
+# Classroom Frontend
 
 <div align="center" style="margin: 30px;">
     <a href="https://refine.dev">
@@ -7,32 +7,55 @@
 </div>
 <br/>
 
-This [Refine](https://github.com/refinedev/refine) project was generated with [create refine-app](https://github.com/refinedev/refine/tree/master/packages/create-refine-app).
+This project is the frontend for the Classroom application, built with [Refine](https://github.com/refinedev/refine).
+
+## Tech Stack
+
+- **React**: Frontend library.
+- **Refine**: Framework for data-heavy applications.
+- **shadcn/ui**: Accessible UI components.
+- **Tailwind CSS**: Utility-first CSS framework.
+- **React Router**: Routing library.
 
 ## Getting Started
 
-A React Framework for building internal tools, admin panels, dashboards & B2B apps with unmatched flexibility ✨
+### Prerequisites
 
-Refine's hooks and components simplifies the development process and eliminates the repetitive tasks by providing industry-standard solutions for crucial aspects of a project, including authentication, access control, routing, networking, state management, and i18n.
+- Node.js (v18+)
+- npm
 
-## Available Scripts
-
-### Running the development server.
+### Installation
 
 ```bash
-    npm run dev
+npm install
 ```
 
-### Building for production.
+### Environment Variables
 
-```bash
-    npm run build
+Create a `.env` file in this directory:
+
+```env
+VITE_API_URL=http://localhost:8000
 ```
 
-### Running the production server.
+### Available Scripts
+
+#### Running the development server
 
 ```bash
-    npm run start
+npm run dev
+```
+
+#### Building for production
+
+```bash
+npm run build
+```
+
+#### Running the production server
+
+```bash
+npm run start
 ```
 
 ## Learn More
